@@ -4,6 +4,12 @@ const users = require("./userDb");
 
 const router = express.Router();
 
+
+
+router.get('/', (req, res) => {
+  // do your magic!
+});
+
 router.post('/', (req, res) => {
   // do your magic!
 });
@@ -12,9 +18,7 @@ router.post('/:id/posts', (req, res) => {
   // do your magic!
 });
 
-router.get('/', (req, res) => {
-  // do your magic!
-});
+
 
 router.get('/:id', (req, res) => {
   // do your magic!

@@ -9,12 +9,12 @@ const postsRouter = require("./posts/postRouter");
 
 //////// Server / Port ////////
 const server = express();
-const port = 3000
+const port = 3333
 
 //////// Servers / Middlewares ////////
 server.use(express.json());
 server.use(cors());
-server.use(logger({ format: "long" }));
+server.use(logger({ format: "medium" }));
 
 server.use("/users", usersRouter);
 server.use("/users/:id/posts", postsRouter);
