@@ -13,7 +13,7 @@ const port = 3000
 
 //////// Servers / Middlewares ////////
 server.use(express.json());
-server.use(cors()):
+server.use(cors());
 server.use(logger({ format: "long" }));
 
 server.use("/users", usersRouter);
