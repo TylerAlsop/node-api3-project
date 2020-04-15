@@ -3,26 +3,59 @@ const posts = require("./postDb");
 
 const router = express.Router();
 
+
+//////////////// GET ////////////////
+
 router.get('/', (req, res) => {
-  // do your magic!
+  posts.find(options)
+  .then((posts) => {
+    res.status(200).json(posts)
+  })
+  .catch((error) => {
+    next(error)
+  })
 });
 
-router.get('/:id', (req, res) => {
-  // do your magic!
+router.get('/:id', validatePostId(), (req, res) => {
+	res.status(200).json(req.post)
 });
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
-});
+
+//////////////// POST ////////////////
+//This post request can be found in the userRouter.js
+
+//////////////// PUT ////////////////
 
 router.put('/:id', (req, res) => {
   // do your magic!
 });
 
-// custom middleware
+//////////////// DELETE ////////////////
+
+router.delete('/:id', (req, res) => {
+  // do your magic!
+});
+
+
+//////////////// CUSTOM MIDDLEWARE ////////////////
 
 function validatePostId(req, res, next) {
-  // do your magic!
+  return (req, res, next) => {
+		posts.getById(req.params.id)
+			.then((post) => {
+				if (post) {
+					req.post = post
+					next()
+				} else {
+					res.status(400).json({
+						message: "Invalid post ID."
+					})
+				}
+			})
+			.catch((error) => {
+				next(error)
+			})
+	}
 }
 
 module.exports = router;

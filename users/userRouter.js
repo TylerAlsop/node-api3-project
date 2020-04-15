@@ -55,14 +55,9 @@ router.post('/', validateUser(), (req, res) => {
 ///// Create User Post /////
 /////////////// Reqest does not stop ///////////////
 
-router.post('/:id/posts', validateUserId(), (req, res) => {
-  if (!req.body.text) {
-		return res.status(400).json({
-			message: "Text needed to create a post.",
-		})
-	}
+router.post('/:id/posts', validateUserId(), validatePost(), (req, res) => {
 
-	posts.insert(req.params.id, req.body)
+	posts.insert(req.body)
 		.then((post) => {
 			res.status(201).json(post)
 		})
@@ -149,6 +144,8 @@ function validatePost() {
       return res.status(400).json({
         message: "Missing required text Field."
       })
+    } else {
+      next()
     }
   }
 }
