@@ -19,16 +19,23 @@ router.get('/', (req, res) => {
 		})
 		.catch((error) => {
 			next(error)
-
 		})
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', validateUserId(), (req, res) => {
 	res.status(200).json(req.user)
 });
 
-router.get('/:id/posts', (req, res) => {
-  // do your magic!
+router.get('/:id/posts', validateUserId(), (req, res) => {
+  users.getUserPosts(req.params.id)
+    .then((posts) => {
+      res
+        .status(200)
+        .json(posts)
+    })
+    .catch((error) => {
+			next(error)
+		})
 });
 
 
@@ -59,9 +66,9 @@ router.delete('/:id', (req, res) => {
 //////////////// Custom Middleware ////////////////
 
 
-function validateUserId(req, res, next) {
+function validateUserId() {
   return (req, res, next) => {
-		users.findById(req.params.id)
+		users.getById(req.params.id)
 			.then((user) => {
 				if (user) {
 					req.user = user
