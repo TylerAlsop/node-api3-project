@@ -26,8 +26,14 @@ router.get('/:id', validatePostId(), (req, res) => {
 
 //////////////// PUT ////////////////
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', validatePostId(), (req, res) => {
+  posts.update(req.params.id, req.body)
+  .then((user) => {
+    res.status(200).json(user)
+  })
+  .catch((error) => {
+    next(error)
+  })
 });
 
 //////////////// DELETE ////////////////
