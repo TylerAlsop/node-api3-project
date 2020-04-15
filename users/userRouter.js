@@ -53,9 +53,6 @@ router.post('/', validateUser(), (req, res) => {
 });
 
 ///// Create User Post /////
-/* 
-********* Request does not stop *********
-*/
 
 router.post('/:id/posts', validateUserId(), validatePost(), (req, res) => {
 

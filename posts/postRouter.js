@@ -38,8 +38,22 @@ router.put('/:id', validatePostId(), (req, res) => {
 
 //////////////// DELETE ////////////////
 
-router.delete('/:id', (req, res) => {
-  // do your magic!
+router.delete('/:id', validatePostId(), (req, res) => {
+  posts.remove(req.params.id)
+  .then((count) => {
+    if (count > 0) {
+      res.status(200).json({
+        message: "The post you have selected has been deleted.",
+      })
+    } else {
+      res.status(404).json({
+        message: "The post you selected could not be found",
+      })
+    }
+  })
+  .catch((error) => {
+    next(error)
+  })
 });
 
 
