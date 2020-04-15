@@ -87,7 +87,21 @@ router.put('/:id', validateUser(), validateUserId(), (req, res) => {
 //////////////// DELETE ////////////////
 
 router.delete('/:id', (req, res) => {
-  // do your magic!
+  users.remove(req.params.id)
+  .then((count) => {
+    if (count > 0) {
+      res.status(200).json({
+        message: "The user you have selected has been deleted.",
+      })
+    } else {
+      res.status(404).json({
+        message: "The user you selected could not be found",
+      })
+    }
+  })
+  .catch((error) => {
+    next(error)
+  })
 });
 
 
