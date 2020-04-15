@@ -85,7 +85,7 @@ function validateUserId() {
 	}
 }
 
-function validateUser(req, res, next) {
+function validateUser() {
   return (req, res, next) => {
 		if (!req.body) {
 			return res.status(400).json({
@@ -101,7 +101,7 @@ function validateUser(req, res, next) {
 	}
 }
 
-function validatePost(req, res, next) {
+function validatePost() {
   return (req, res, next) => {
     if (!req.body) {
       return res.status(400).json({
