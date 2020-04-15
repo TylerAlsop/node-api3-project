@@ -41,8 +41,14 @@ router.get('/:id/posts', validateUserId(), (req, res) => {
 
 //////////////// POST ////////////////
 
-router.post('/', (req, res) => {
-  // do your magic!
+router.post('/', validateUser(), (req, res) => {
+  users.insert(req.body)
+    .then((user) => {
+      res.status(201).json(user)
+    })
+    .catch((error) => {
+			next(error)
+		})
 });
 
 router.post('/:id/posts', (req, res) => {
