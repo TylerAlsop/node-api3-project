@@ -1,5 +1,6 @@
 const express = require('express');
 const users = require("./userDb");
+const posts = require("../posts/postDb")
 
 
 const router = express.Router();
@@ -51,15 +52,36 @@ router.post('/', validateUser(), (req, res) => {
 		})
 });
 
-router.post('/:id/posts', (req, res) => {
-  // do your magic!
+///// Create User Post /////
+/////////////// Reqest does not stop ///////////////
+
+router.post('/:id/posts', validateUserId(), (req, res) => {
+  if (!req.body.text) {
+		return res.status(400).json({
+			message: "Text needed to create a post.",
+		})
+	}
+
+	posts.insert(req.params.id, req.body)
+		.then((post) => {
+			res.status(201).json(post)
+		})
+		.catch((error) => {
+			next(error)
+		})
 });
 
 
 //////////////// PUT ////////////////
 
-router.put('/:id', (req, res) => {
-  // do your magic!
+router.put('/:id', validateUser(), validateUserId(), (req, res) => {
+  users.update(req.params.id, req.body)
+  .then((user) => {
+    res.status(200).json(user)
+  })
+  .catch((error) => {
+    next(error)
+  })
 });
 
 //////////////// DELETE ////////////////
@@ -81,7 +103,7 @@ function validateUserId() {
 					next()
 				} else {
 					res.status(400).json({
-						message: "Invalid user ID"
+						message: "Invalid user ID."
 					})
 				}
 			})
