@@ -1,3 +1,5 @@
+// require("dotenv").config
+
 //////// Require ////////
 const express = require("express");
 const cors = require("cors");
@@ -10,7 +12,7 @@ const postsRouter = require("./posts/postRouter");
 
 //////// Server / Port ////////
 const server = express();
-const port = process.env.PORT
+const port = process.env.PORT || 3333
 
 //////// Servers / Middlewares ////////
 server.use(express.json());
