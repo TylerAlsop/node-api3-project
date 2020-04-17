@@ -10,7 +10,7 @@ const postsRouter = require("./posts/postRouter");
 
 //////// Server / Port ////////
 const server = express();
-const port = 3333
+const port = process.env.PORT || 3333
 
 //////// Servers / Middlewares ////////
 server.use(express.json());
