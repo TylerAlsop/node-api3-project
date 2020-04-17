@@ -4,6 +4,7 @@ const cors = require("cors");
 const logger =  require("./middleware/logger");
 
 //////// Routers ////////
+const welcomeRouter = require("./welcome/welcomeRouter");
 const usersRouter = require("./users/userRouter");
 const postsRouter = require("./posts/postRouter");
 
@@ -16,6 +17,7 @@ server.use(express.json());
 server.use(cors());
 server.use(logger({ format: "medium" }));
 
+server.use("/", welcomeRouter);
 server.use("/users", usersRouter);
 server.use("/users/:id/posts", postsRouter);
 
