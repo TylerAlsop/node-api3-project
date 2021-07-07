@@ -1,7 +1,7 @@
 const db = require('../data/dbConfig.js');
 
 module.exports = {
-  get,
+  find,
   getById,
   getUserPosts,
   insert,
@@ -9,7 +9,7 @@ module.exports = {
   remove,
 };
 
-function get() {
+function find() {
   return db('users');
 }
 
